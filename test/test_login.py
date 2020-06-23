@@ -44,23 +44,24 @@ class TestAzercell(TestCase):
     # Unable to locate element: #mat-error-3 (it does not give an error msg in website)
     def test_enter_long_number(self):
         self.browser_driver.get('http://azercell.com/my/login')
-        self.browser_driver.find_element_by_css_selector('#mat-input-1').send_keys('0518179001')
+        self.browser_driver.find_element_by_css_selector('#mat-input-1').send_keys('05181790011')
         self.browser_driver.find_element_by_css_selector('#mat-input-2').click()
-        expected_warning = 'The number should consist of 9 digits'  #The number should consist of 9 digits
-        actual_warning = self.browser_driver.find_element_by_css_selector('#mat-error-7').text
+        expected_warning = 'The number should consist of 9 digits'  # The number should consist of 9 digits
+        actual_warning = self.browser_driver.find_element_by_css_selector('#mat-error-3').text
         assert expected_warning == actual_warning
+        self.browser_driver.delete_all_cookies()
+        self.browser_driver.get('http://azercell.com/my/login')
 
-    def test_enter_number_with_wrong_prefix(self):  # AssertionError
-        # self.browser_driver.get('http://azercell.com/my/login')
+    def test_enter_number_with_wrong_prefix(self):  # L005 AssertionError
+        self.browser_driver.get('http://azercell.com/my/login')
         self.browser_driver.find_element_by_css_selector('#mat-input-1').send_keys('058179001')
         self.browser_driver.find_element_by_css_selector('#mat-input-2').click()
-        expected_warning = 'The number is wrong'
-        actual_warning = self.browser_driver.find_element_by_css_selector('#mat-error-2').text
-        assert expected_warning == actual_warning
-
-
+        expected_pref_warning = 'The number is wrong'
+        actual_pref_warning = self.browser_driver.find_element_by_css_selector('#mat-error-2').text
+        assert expected_pref_warning == actual_pref_warning
 
     def test_none_numeric_symbols_to_mobile_number_field(self):  # Passed
+        self.browser_driver.get('http://azercell.com/my/login')
         self.browser_driver.find_element_by_css_selector('#mat-input-1').send_keys('51E')
         self.browser_driver.find_element_by_css_selector('#mat-input-2').click()
         expected_warning = 'Enter the number'
@@ -70,6 +71,7 @@ class TestAzercell(TestCase):
         self.browser_driver.get('http://azercell.com/my/login')
 
     def test_password_not_filled(self):  # passed
+        self.browser_driver.get('http://azercell.com/my/login')
         self.browser_driver.find_element_by_css_selector('#mat-input-1').send_keys('518179001')
         self.browser_driver.find_element_by_css_selector('#mat-input-2').click()
         self.browser_driver.find_element_by_css_selector('div.row:nth-child(5)').click()
@@ -89,7 +91,7 @@ class TestAzercell(TestCase):
         actual_password = self.browser_driver.find_element_by_css_selector('#mat-input-2').get_attribute('value')
         assert expected_password == actual_password
 
-    def try_to_login_with_not_registered_number(self):#L009 no messaage alert
+    def test_to_login_with_not_registered_number(self):  # L009 no message alert
         self.browser_driver.get('http://azercell.com/my/login')
         self.browser_driver.find_element_by_css_selector('#mat-input-1').click()
         self.browser_driver.find_element_by_css_selector('#mat-input-1').send_keys('518951066')
@@ -100,23 +102,27 @@ class TestAzercell(TestCase):
         actual_warning = self.browser_driver.find_element_by_css_selector('#mat-input-2').text
         assert expected_warning == actual_warning
 
-    """def try_to_login_with_registered_number_without_password(self):#L010
+    def test_to_login_with_registered_number_without_password(self):  # L010 passed
         self.browser_driver.get('http://azercell.com/my/login')
         self.browser_driver.find_element_by_css_selector('#mat-input-1').send_keys('518179001')
         self.browser_driver.find_element_by_css_selector('.btn').click()
-        expected_alert_msg= 'The form has not completed properly'
-        actual_alert_msg=self.browser_driver."""
+        expected_alert = 'The form has not completed properly'
+        actual_alert = self.browser_driver.find_element_by_css_selector('.cdk-live-announcer-element').text
+        expected_alert == actual_alert
 
-    def try_to_login_with_registered_number_using_wrong_credentials(self):#L011
+    def test_to_login_with_registered_number_using_wrong_credentials(self):  # L011 passed
+        self.browser_driver.get('http://azercell.com/my/login')
         self.browser_driver.find_element_by_css_selector('#mat-input-1').send_keys('518179001')
         self.browser_driver.find_element_by_css_selector('#mat-input-2').click()
         self.browser_driver.find_element_by_css_selector('#mat-input-2').send_keys('a123456')
         self.browser_driver.find_element_by_css_selector('.btn').click()
-        expected_alert_msg ='Wrong password'
-        actual_alert_msg=self.browser_driver
-        assert expected_alert_msg == actual_alert_msg
+        expected_error = 'The code is wrong'
+        actual_error = self.browser_driver.find_element_by_css_selector('.cdk-live-announcer-element').text
+        expected_error == actual_error
 
-    def test_login_with_registered_user_using_correct_credentials(self):  # passed
+
+
+    def test_login_with_registered_user_using_correct_credentials(self):  # L012 passed
         self.browser_driver.get('http://azercell.com/my/login')
         self.browser_driver.find_element_by_css_selector('#mat-input-1').click()
         self.browser_driver.find_element_by_css_selector('#mat-input-1').send_keys('518179001')
