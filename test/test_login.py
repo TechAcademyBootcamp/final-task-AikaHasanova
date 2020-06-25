@@ -123,7 +123,7 @@ class TestAzercell(TestCase):
         self.browser_driver.find_element_by_css_selector('.btn').click()
         expected_alert_error = 'The code is wrong'
         actual_alert_error = self.browser_driver.find_element_by_css_selector('.cdk-live-announcer-element').text
-        expected_alert_error == actual_alert_error
+        assert expected_alert_error == actual_alert_error
 
 
     def test_login_with_registered_user_using_correct_credentials(self):  # L012 passed
