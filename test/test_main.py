@@ -49,6 +49,8 @@ class TestAzercell(TestCase):
         expected_tariff = 'Azercellim'
         assert expected_tariff in actual_tariff
 
+
+
     def test_main_linestatus(self):#M002
         #alt.self.browser_driver.find_element_by_class_name('mat-slide-toggle-label').click()
         self.browser_driver.find_element_by_css_selector(
@@ -75,118 +77,133 @@ class TestAzercell(TestCase):
 
 
 
-    def test_main_page_in_russian(self):#M028
-        self.browser_driver.find_element_by_css_selector('li.b-nav__lang:nth-child(4) > a:nth-child(1)').click()
-        expected_main = 'Главная'
-        actual_main = self.browser_driver.find_element_by_css_selector(
-            'div.col-xs-6:nth-child(1) > h3:nth-child(1)').text
-        assert expected_main == actual_main
+    def test_main_page_in_english(self):#M027
 
-        expected_prepaid = 'Предоплата'
-        actual_prepaid = self.browser_driver.find_element_by_css_selector('.btn').text
-        assert expected_prepaid == actual_prepaid
-
-        expected_line = 'Линия номера'
-        actual_line=self.browser_driver.find_element_by_css_selector('div.switch:nth-child(2) > div:nth-child(1) > p:nth-child(1)').text
-        assert expected_line==actual_line
-
-        expected_open = 'Открыта'
-        actual_open = self.browser_driver.find_element_by_css_selector(
-            '.text-success').text
-        assert expected_open == actual_open
-
-        expected_line_activation = 'Линия связи'
-        actual_line_activation=self.browser_driver.find_element_by_css_selector('div.switch:nth-child(4) > div:nth-child(1) > p:nth-child(1)').text
-        assert expected_line_activation in actual_line_activation
-
-        expected_roaming = 'Роуминг линия'
-        actual_roaming=self.browser_driver.find_element_by_css_selector('div.switch:nth-child(6) > div:nth-child(1) > p:nth-child(1)').text
-        assert expected_roaming in actual_roaming
-
-        expected_roaming_text = 'Перед выездом заграницу рекомендуется учитывать тарифы по роумингу и выгодные предложения. Дополнительно '
-        actual_roaming_text=self.browser_driver.find_element_by_css_selector('p.text-left:nth-child(3)').text
-        assert expected_roaming_text== actual_roaming_text
-
-        expected_roaming_more = 'Дополнительно'
-        actual_roaming_more=self.browser_driver.find_element_by_css_selector('p.text-left:nth-child(3) > a:nth-child(1)').text
-        assert expected_roaming_more == actual_roaming_more
-
-        expected_balance = 'Основной баланс: 71.33 AZN'
-        actual_balance = self.browser_driver.find_element_by_css_selector('p.simple-p:nth-child(1)').text
-        assert expected_balance in actual_balance
-
-        expected_expdate = 'Последняя дата пользования: 06/10/2020 '
-        actual_expdate=self.browser_driver.find_element_by_css_selector('p.text-left:nth-child(2)').text
-        assert actual_expdate == expected_expdate
-
-    def test_main_page_in_english(self):
         expected_main = 'Main'
         actual_main = self.browser_driver.find_element_by_css_selector(
             'div.col-xs-6:nth-child(1) > h3:nth-child(1)').text
         assert expected_main == actual_main
 
-        expected_prepaiid = 'Pre-paid'
-        actual_prepaid = self.browser_driver.find_element_by_css_selector('.btn').text
-        assert expected_prepaiid == actual_prepaid
+        expected_prepaid = 'Pre-paid'
+        actual_prepaid = self.browser_driver.find_element_by_css_selector(
+            'body > app-root > app-entry > v-header > div > div.nagi-container > app-main > div > div.b-card.no-top-padding > div.row.b-card__top > div.col-xs-6.b-card__top--right.text-right > button').text
+        assert expected_prepaid == actual_prepaid
 
-        expected_line_status = 'Line status'
+        expected_balance = 'Balance'
+        actual_balance = self.browser_driver.find_element_by_css_selector(
+            '.main--title').text
+        assert expected_balance == actual_balance
+
+        expected_line_status = 'LINE STATUS'
         actual_line_status = self.browser_driver.find_element_by_css_selector(
-            'div.switch:nth-child(2) > div:nth-child(1) > p:nth-child(1)').text
+            'div.l-widget:nth-child(1) > span:nth-child(1)').text
         assert expected_line_status == actual_line_status
 
-        expected_open = 'Open'
-        actual_open = self.browser_driver.find_element_by_css_selector('.text-success').text
-        assert expected_open == actual_open
-
-        expected_line_activation = 'Line activation'
-        actual_line_activation = self.browser_driver.find_element_by_css_selector(
-            'div.switch:nth-child(4) > div:nth-child(1) > p:nth-child(1)').text
-        assert expected_line_activation == actual_line_activation
-
-        expected_roaming_line = 'Roaming line'
-        actual_roaming_line = self.browser_driver.find_element_by_css_selector(
-            'div.switch:nth-child(6) > div:nth-child(1) > p:nth-child(1)').text
-        assert expected_roaming_line == actual_roaming_line
-
-        expected_text = 'More'
-        actual_text = self.browser_driver.find_element_by_css_selector('p.text-left:nth-child(3) > a:nth-child(1)').text
-        assert expected_text == actual_text
-
-        expected_textone = 'You are recommended to consider roaming tariffs and cost-efficient offers before travelling abroad. More'
-        actual_textone = self.browser_driver.find_element_by_css_selector(
-            'body > app-root > app-entry > v-header > div > div.nagi-container > app-main > div > div.b-card.no-top-padding > div.b-card__inner > div:nth-child(6) > p').text
-        assert expected_textone == actual_textone
-
-        expected_main_balance = 'Main balance: 71.33 AZN'
-        actual_main_balance = self.browser_driver.find_element_by_css_selector(
-            'body > app-root > app-entry > v-header > div > div.nagi-container > app-main > div > v-balance-simple > div > div > div > div:nth-child(2) > p.simple-p.simple-p--secondary.no-margin').text
-        assert expected_main_balance == actual_main_balance
-
-        # expected_expire_date = 'Expiry date: 06/10/2020'
-        # actual_expire_date = self.browser_driver.find_element_by_css_selector('body > app-root > app-entry > v-header > div > div.nagi-container > app-main > div > v-balance-simple > div > div > div > div:nth-child(2)').text
-        # assert expected_expire_date == actual_expire_date
-        expected_removal_date = 'Removal date: 04/01/2021'
-        actual_removal_date = self.browser_driver.find_element_by_css_selector(
-            'body > app-root > app-entry > v-header > div > div.nagi-container > app-main > div > v-balance-simple > div > div > div > div:nth-child(3) > div > p').text
-        assert expected_removal_date == actual_removal_date
-
-        expected_more = 'MORE'
-        actual_more = self.browser_driver.find_element_by_css_selector(
-            'body > app-root > app-entry > v-header > div > div.nagi-container > app-main > div > v-balance-simple > div > div > div > div.text-left > a').text
-        assert expected_more == actual_more
-
-        expected_tariff = 'Tariff'
-        actual_tariff = self.browser_driver.find_element_by_css_selector('h3.ng-star-inserted').text
+        expected_tariff = 'TARIFF'
+        actual_tariff = self.browser_driver.find_element_by_css_selector(
+            'div.l-widget:nth-child(2) > span:nth-child(1)').text
         assert expected_tariff == actual_tariff
 
-        expected_current_tariff = 'Current tariff: Azercellim'
-        actual_current_tariff = self.browser_driver.find_element_by_css_selector('.tariff').text
-        assert expected_current_tariff == actual_current_tariff
+        expected_status = 'Open'
+        actual_status= self.browser_driver.find_element_by_css_selector(
+            '.text-success').text
+        assert expected_status == actual_status
 
-        expected_second_more = 'MORE'
-        actual_second_more = self.browser_driver.find_element_by_css_selector(
-            'div.text-left:nth-child(4) > a:nth-child(1)').text
-        assert expected_second_more == actual_second_more
+        expected_azercellim = 'Azercellim'
+        actual_azercellim = self.browser_driver.find_element_by_css_selector(
+            'strong.main-color').text
+        assert expected_azercellim == actual_azercellim
+
+        expected_one_way_blocking = 'ONE-WAY BLOCKING'
+        actual_one_way_blocking = self.browser_driver.find_element_by_css_selector(
+            '.b-card__inner > w-progress:nth-child(7) > div:nth-child(1) > span:nth-child(1)').text
+        assert expected_one_way_blocking == actual_one_way_blocking
+
+        expected_removal_date = 'REMOVAL DATE'
+        actual_removal_date = self.browser_driver.find_element_by_css_selector(
+            '.b-card__inner > w-progress:nth-child(9) > div:nth-child(1) > span:nth-child(1)').text
+        assert expected_removal_date == actual_removal_date
+
+    def test_main_page_in_russian(self):#M028
+        self.browser_driver.find_element_by_css_selector(
+            'body > app-root > app-entry > v-header > div > div.nav-container.white-back > div > div.b-nav.col-md-10.col-xs-11.col-md-offset-1 > ul.b-nav__left > li:nth-child(4) > a').click()
+        expected_main = 'Главная'
+        actual_main = self.browser_driver.find_element_by_css_selector(
+            'div.col-xs-6:nth-child(1)').text
+        assert expected_main == actual_main
+        expected_prepaid = 'Предоплата'
+        actual_prepaid = self.browser_driver.find_element_by_css_selector(
+            '.btn').text
+        assert expected_prepaid == actual_prepaid
+        expected_balance = 'Баланс'
+        actual_balance = self.browser_driver.find_element_by_css_selector(
+            'body > app-root > app-entry > v-header > div > div.nagi-container > app-main > div > div.b-card.no-top-padding > div.b-card__inner.text-start > div:nth-child(2) > span').text
+        assert expected_balance == actual_balance
+        expected_line_status = 'ЛИНИЯ НОМЕРА'
+        actual_line_status = self.browser_driver.find_element_by_css_selector(
+            'div.l-widget:nth-child(1) > span:nth-child(1)').text
+        assert expected_line_status == actual_line_status
+        expected_tarif = 'ТАРИФ'
+        actual_tarif = self.browser_driver.find_element_by_css_selector(
+            'div.l-widget:nth-child(2) > span:nth-child(1)').text
+        assert expected_tarif == actual_tarif
+        expected_open = 'Открыта'
+        actual_open = self.browser_driver.find_element_by_css_selector(
+            '.text-success').text
+        assert expected_open == actual_open
+        expected_azercellim = 'Azercellim'
+        actual_azercellim = self.browser_driver.find_element_by_css_selector(
+            'strong.main-color').text
+        assert expected_azercellim == actual_azercellim
+        expected_blocking = 'ОДНОСТОРОННЕЕ ЗАКРЫТИЕ'
+        actual_blocking = self.browser_driver.find_element_by_css_selector(
+            '.b-card__inner > w-progress:nth-child(7) > div:nth-child(1) > span:nth-child(1)').text
+        assert expected_blocking == actual_blocking
+        expected_removal_date = 'ДАТА ЛИКВИДАЦИИ'
+        actual_removal_date = self.browser_driver.find_element_by_css_selector(
+            '.b-card__inner > w-progress:nth-child(9) > div:nth-child(1) > span:nth-child(1)').text
+        assert expected_removal_date == actual_removal_date
+
+
+    def test_main_page_in_azeri(self):#M029
+        self.browser_driver.find_element_by_css_selector(
+            'body > app-root > app-entry > v-header > div > div.nav-container.white-back > div > div.b-nav.col-md-10.col-xs-11.col-md-offset-1 > ul.b-nav__left > li:nth-child(5) > a').click()
+        expected_main = 'Əsas'
+        actual_main = self.browser_driver.find_element_by_css_selector(
+            'body > app-root > app-entry > v-header > div > div.nagi-container > app-main > div > div.b-card.no-top-padding > div.row.b-card__top > div.col-xs-6.b-card__top--left > h3').text
+        assert expected_main == actual_main
+        expected_prepaid = 'Fakturasız xətt'
+        actual_prepaid = self.browser_driver.find_element_by_css_selector(
+            'body > app-root > app-entry > v-header > div > div.nagi-container > app-main > div > div.b-card.no-top-padding > div.row.b-card__top > div.col-xs-6.b-card__top--right.text-right > button').text
+        assert expected_prepaid == actual_prepaid
+        expected_balance = 'Balans'
+        actual_balance = self.browser_driver.find_element_by_css_selector(
+            '.main--title').text
+        assert expected_balance == actual_balance
+        expected_line_status = 'NÖMRƏNIN XƏTTI'
+        actual_line_status = self.browser_driver.find_element_by_css_selector(
+            'div.l-widget:nth-child(1) > span:nth-child(1)').text
+        assert expected_line_status == actual_line_status
+        expected_tarif = 'TARIF'
+        actual_tarif = self.browser_driver.find_element_by_css_selector(
+            'div.l-widget:nth-child(2) > span:nth-child(1)').text
+        assert expected_tarif == actual_tarif
+        expected_open = 'Açıqdır'
+        actual_open = self.browser_driver.find_element_by_css_selector(
+            '.text-success').text
+        assert expected_open == actual_open
+        expected_azercellim = 'Azercellim'
+        actual_azercellim = self.browser_driver.find_element_by_css_selector(
+            'strong.main-color').text
+        assert expected_azercellim == actual_azercellim
+        expected_blocking = 'BIRTƏRƏFLI BAĞLANMA'
+        actual_blocking = self.browser_driver.find_element_by_css_selector(
+            '.b-card__inner > w-progress:nth-child(7) > div:nth-child(1) > span:nth-child(1)').text
+        assert expected_blocking == actual_blocking
+        expected_removal_date = 'LƏĞV OLUNMA TARIXI'
+        actual_removal_date = self.browser_driver.find_element_by_css_selector(
+            '.b-card__inner > w-progress:nth-child(9) > div:nth-child(1) > span:nth-child(1)').text
+        assert expected_removal_date == actual_removal_date
 
 
 
